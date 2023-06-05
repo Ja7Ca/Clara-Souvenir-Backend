@@ -6,11 +6,11 @@ module.exports = {
     getPegawai: (req, res) => {
         pegawai
             .findAll({
-                where: {
-                    id: {
-                        [Sequelize.Op.ne]: "1",
-                    },
-                },
+                // where: {
+                //     id: {
+                //         [Sequelize.Op.ne]: "1",
+                //     },
+                // },
                 attributes: { exclude: ["createdAt", "updatedAt"] },
             })
             .then((response) => {
