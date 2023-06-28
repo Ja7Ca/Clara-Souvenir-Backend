@@ -21,6 +21,9 @@ module.exports = {
             key: {
                 type: Sequelize.STRING,
             },
+            role: {
+                type: Sequelize.ENUM("Admin", "Pegawai"),
+            },
             created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,

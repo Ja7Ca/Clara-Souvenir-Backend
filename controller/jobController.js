@@ -133,7 +133,7 @@ module.exports = {
             });
     },
     getAllJob: (req, res) => {
-        if (req.user.id == 1) {
+        if (req.user.role == "Admin") {
             job.findAll({
                 attributes: [
                     "id",
@@ -172,7 +172,6 @@ module.exports = {
                 });
         } else {
             job.findAll({
-                where: { pegawai_id: req.user.id },
                 attributes: [
                     "id",
                     "pegawai_id",
@@ -185,6 +184,7 @@ module.exports = {
                         model: pegawai,
                         attributes: ["nama", "alamat"],
                         as: "pegawai",
+                        where: { user_id: req.user.id },
                     },
                     {
                         model: barang,

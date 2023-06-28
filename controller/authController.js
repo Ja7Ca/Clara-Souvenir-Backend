@@ -1,4 +1,4 @@
-const { user } = require("../models");
+const { user, pegawai } = require("../models");
 const passport = require("../lib/passport");
 const mail = require("nodemailer");
 const bcrypt = require("bcrypt");
@@ -10,8 +10,8 @@ const hash = (password) => {
 };
 
 function formatUser(user) {
-    const { id, username } = user.dataValues;
-    return user.generateToken(id, username);
+    const { id, username, role } = user.dataValues;
+    return user.generateToken(id, username, role);
 }
 
 const transport = mail.createTransport({
@@ -19,8 +19,8 @@ const transport = mail.createTransport({
     port: 587,
     sevice: "gmail",
     auth: {
-        user: "jarotsetiawan2503@gmail.com",
-        pass: "evfnflsbzgmnjsxl",
+        user: "souvenirclara@gmail.com",
+        pass: "sxqcyicqhmcajhfz",
     },
 });
 
@@ -72,7 +72,28 @@ module.exports = {
         failureFlash: true,
     }),
     getWhoami: (req, res) => {
-        res.json(req.user);
+        user.findOne({
+            where: { id: req.user.id },
+            attributes: { exclude: ["password", "key"] },
+            include: {
+                model: pegawai,
+                as: "product",
+            },
+        })
+            .then((result) => {
+                res.json({
+                    message: "Get User",
+                    success: true,
+                    data: result,
+                });
+            })
+            .catch((err) => {
+                res.json({
+                    message: "failed Get User",
+                    success: false,
+                    errorr: err.message,
+                });
+            });
     },
     forgot: (req, res) => {
         let { email, username } = req.body;
