@@ -1,3 +1,4 @@
+const http = require("node:http");
 const express = require("express");
 const app = express();
 // const flash = require('flash');
@@ -40,6 +41,13 @@ app.use(jobRouter);
 app.use(barangRouter);
 
 app.listen(port, () => {
+    const options = {
+        port: port,
+        host: "127.0.0.1",
+    };
+
+    const req = http.request(options);
+    req.end();
     console.log(`Server is running on port ${port}`);
 });
 
