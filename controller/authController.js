@@ -59,7 +59,7 @@ module.exports = {
                 })
                 .catch((err) => {
                     res.json({
-                        message: err.message,
+                        message: err,
                         success: false,
                         data: {},
                     });
