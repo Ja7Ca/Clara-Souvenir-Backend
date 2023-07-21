@@ -8,12 +8,12 @@ const dotenv = require("dotenv");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-// app.use(cookieParser())
+app.set("trust proxy", 1);
 app.use(
     session({
         secret: "Ini rahasia banget",
         resave: true,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie: { maxAge: 1000 * 60 * 60 * 24 },
     })
 );
