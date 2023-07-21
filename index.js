@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use(passport.session());
 
 app.use("/public", express.static("public"));
 app.use(cors());
-
+dotenv.config();
 const port = process.env.PORT || 5000;
 
 const authRouter = require("./router/auth");
