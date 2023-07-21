@@ -2,21 +2,21 @@ const express = require("express");
 const app = express();
 // const flash = require('flash');
 const cors = require("cors");
-// const session = require("express-session");
+const session = require("express-session");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 // app.set("trust proxy", 1);
-// app.use(
-//     session({
-//         secret: "Ini rahasia banget",
-//         resave: true,
-//         saveUninitialized: true,
-//         cookie: { maxAge: 1000 * 60 * 60 * 24 },
-//     })
-// );
+app.use(
+    session({
+        secret: "Ini rahasia banget",
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    })
+);
 
 app.set("views", __dirname);
 
