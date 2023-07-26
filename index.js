@@ -9,7 +9,6 @@ const dotenv = require("dotenv");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-// app.set("trust proxy", 1);
 app.use(
     session({
         secret: "Ini rahasia banget",
