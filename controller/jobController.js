@@ -133,6 +133,7 @@ module.exports = {
             });
     },
     getAllJob: (req, res) => {
+        console.log(req.query.start, req.query.end);
         if (req.user.role == "Admin") {
             job.findAll({
                 attributes: [
@@ -142,6 +143,18 @@ module.exports = {
                     "jumlah",
                     "tanggal",
                 ],
+                order: [
+                    ["pegawai_id", "asc"],
+                    ["tanggal", "desc"],
+                ],
+                where: {
+                    tanggal: {
+                        [Sequelize.Op.between]: [
+                            req.query.start,
+                            req.query.end,
+                        ],
+                    },
+                },
                 include: [
                     {
                         model: pegawai,
@@ -154,7 +167,6 @@ module.exports = {
                         as: "barang",
                     },
                 ],
-                order: [["tanggal", "DESC"]],
             })
                 .then((result) => {
                     res.json({
